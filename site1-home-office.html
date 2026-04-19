@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SetupElite — Build Your Dream Home Office</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f0e0c;
+    --cream: #f7f4ef;
+    --warm: #f0ebe0;
+    --accent: #c8502a;
+    --accent2: #1a3a2a;
+    --gold: #d4a847;
+    --muted: #6b6560;
+    --border: rgba(15,14,12,0.1);
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+  /* NAV */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 5%; border-bottom: 1px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink); color: var(--cream); padding: 0.5rem 1.2rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; text-decoration: none; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; padding: 5% 5% 5% 5%; gap: 4rem; align-items: center; }
+  .hero-text { animation: fadeUp 0.8s ease both; }
+  .hero-tag { display: inline-block; background: var(--accent2); color: #9ecfb0; font-size: 0.75rem; font-weight: 500; padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1.5rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero p { font-size: 1.1rem; color: var(--muted); line-height: 1.7; max-width: 440px; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--accent); color: white; padding: 0.85rem 2rem; border-radius: 3rem; font-weight: 500; text-decoration: none; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,80,42,0.3); }
+  .btn-secondary { border: 1.5px solid var(--ink); color: var(--ink); padding: 0.85rem 2rem; border-radius: 3rem; font-weight: 500; text-decoration: none; font-size: 0.95rem; transition: all 0.2s; }
+  .btn-secondary:hover { background: var(--ink); color: var(--cream); }
+  .hero-visual { position: relative; animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-card-stack { position: relative; }
+  .setup-card { background: white; border-radius: 1.5rem; padding: 2rem; border: 1px solid var(--border); position: relative; }
+  .setup-card-back { position: absolute; top: -16px; left: 16px; right: -16px; bottom: 16px; background: var(--warm); border-radius: 1.5rem; border: 1px solid var(--border); z-index: -1; }
+  .card-img { width: 100%; height: 220px; background: linear-gradient(135deg, #e8e0d5 0%, #d5ccc0 100%); border-radius: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .desk-illustration { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .card-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .card-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card-price { font-size: 0.9rem; color: var(--muted); }
+  .card-price strong { color: var(--accent); font-size: 1.1rem; }
+  .card-badge { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--gold); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stats-row { display: flex; gap: 2rem; margin-top: 3rem; }
+  .stat { }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--ink); }
+  .stat-label { font-size: 0.8rem; color: var(--muted); }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--ink); color: var(--cream); padding: 0.9rem 0; overflow: hidden; white-space: nowrap; }
+  .marquee { display: inline-block; animation: scroll 20s linear infinite; }
+  .marquee span { margin: 0 2rem; font-size: 0.85rem; font-weight: 500; opacity: 0.8; }
+  .marquee span.dot { color: var(--accent); opacity: 1; }
+
+  /* PRODUCTS */
+  .section { padding: 6rem 5%; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; line-height: 1.15; }
+  .view-all { font-size: 0.9rem; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color 0.2s; }
+  .view-all:hover { color: var(--ink); }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .product-card { background: white; border-radius: 1.2rem; overflow: hidden; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; }
+  .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(15,14,12,0.1); }
+  .product-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+  .product-img.bg1 { background: #f0ebe0; }
+  .product-img.bg2 { background: #e8f0ea; }
+  .product-img.bg3 { background: #e8e4f0; }
+  .product-img.bg4 { background: #f0e8e8; }
+  .product-img.bg5 { background: #e8eef0; }
+  .product-img.bg6 { background: #f0ede8; }
+  .product-info { padding: 1.2rem 1.4rem 1.5rem; }
+  .product-cat { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.4rem; }
+  .product-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.8rem; line-height: 1.3; }
+  .product-bottom { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { font-size: 1rem; font-weight: 500; color: var(--accent); }
+  .product-btn { background: var(--ink); color: white; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.8rem; text-decoration: none; transition: background 0.2s; }
+  .product-btn:hover { background: var(--accent); }
+  .commission-tag { font-size: 0.7rem; color: var(--accent2); background: #e8f4ee; padding: 0.2rem 0.6rem; border-radius: 1rem; margin-top: 0.5rem; display: inline-block; }
+
+  /* WHY SECTION */
+  .why-section { background: var(--ink); color: var(--cream); padding: 6rem 5%; }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .why-text .section-label { color: var(--gold); }
+  .why-text .section-title { color: var(--cream); margin-bottom: 1.5rem; }
+  .why-text p { color: rgba(247,244,239,0.7); line-height: 1.8; margin-bottom: 2rem; }
+  .features-list { display: flex; flex-direction: column; gap: 1.2rem; }
+  .feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .feature-icon { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: rgba(247,244,239,0.08); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .feature-item h4 { font-weight: 500; margin-bottom: 0.2rem; font-size: 0.95rem; }
+  .feature-item p { color: rgba(247,244,239,0.6); font-size: 0.85rem; line-height: 1.5; margin: 0; }
+  .why-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .why-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 1rem; padding: 1.5rem; }
+  .why-card-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--gold); margin-bottom: 0.3rem; }
+  .why-card-label { font-size: 0.8rem; color: rgba(247,244,239,0.6); line-height: 1.4; }
+  .why-card.wide { grid-column: span 2; }
+
+  /* REVIEWS */
+  .reviews-section { padding: 6rem 5%; background: var(--warm); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .review-card { background: white; border-radius: 1.2rem; padding: 1.8rem; border: 1px solid var(--border); }
+  .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+  .review-text { font-size: 0.9rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.2rem; font-style: italic; }
+  .reviewer { display: flex; align-items: center; gap: 0.8rem; }
+  .reviewer-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 700; }
+  .reviewer-name { font-weight: 500; font-size: 0.85rem; }
+  .reviewer-role { font-size: 0.75rem; color: var(--muted); }
+
+  /* CTA */
+  .cta-section { padding: 6rem 5%; text-align: center; }
+  .cta-inner { max-width: 640px; margin: 0 auto; }
+  .cta-inner .section-title { margin-bottom: 1rem; }
+  .cta-inner p { color: var(--muted); margin-bottom: 2.5rem; line-height: 1.7; }
+  .cta-form { display: flex; gap: 0.8rem; max-width: 420px; margin: 0 auto; }
+  .cta-form input { flex: 1; padding: 0.85rem 1.2rem; border: 1.5px solid var(--border); border-radius: 3rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; background: white; outline: none; transition: border-color 0.2s; }
+  .cta-form input:focus { border-color: var(--accent); }
+  .cta-form button { background: var(--accent); color: white; padding: 0.85rem 1.5rem; border: none; border-radius: 3rem; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; white-space: nowrap; transition: transform 0.2s; }
+  .cta-form button:hover { transform: scale(1.03); }
+  .disclaimer { font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: rgba(247,244,239,0.6); padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--cream); }
+  footer p { font-size: 0.8rem; }
+  .affiliate-notice { font-size: 0.75rem; text-align: center; padding: 1rem; background: var(--warm); border-top: 1px solid var(--border); color: var(--muted); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; padding: 3rem 5%; }
+    .hero-visual { display: none; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Setup<span>Elite</span></div>
+  <ul class="nav-links">
+    <li><a href="#products">Best Picks</a></li>
+    <li><a href="#why">Why It Matters</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#products" class="nav-cta">Shop Setups</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-tag">⚡ Top Picks for 2026</span>
+    <h1>Work from home<br>like a <em>pro.</em></h1>
+    <p>Expert-curated home office gear that actually makes you more productive. No fluff — just the setups that deliver results.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Browse Top Picks</a>
+      <a href="#why" class="btn-secondary">How We Choose</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Products tested</div></div>
+      <div class="stat"><div class="stat-num">12K+</div><div class="stat-label">Happy readers</div></div>
+      <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Avg rating</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="setup-card-back"></div>
+      <div class="setup-card">
+        <div class="card-badge">🏆 Editor's Pick</div>
+        <div class="card-img">
+          <svg width="200" height="160" viewBox="0 0 200 160">
+            <rect x="20" y="90" width="160" height="8" rx="3" fill="#c8502a" opacity="0.3"/>
+            <rect x="40" y="40" width="120" height="52" rx="6" fill="#1a3a2a" opacity="0.15"/>
+            <rect x="45" y="45" width="110" height="42" rx="4" fill="#0f0e0c" opacity="0.08"/>
+            <rect x="85" y="98" width="30" height="10" rx="2" fill="#c8502a" opacity="0.2"/>
+            <rect x="50" y="110" width="100" height="6" rx="3" fill="#0f0e0c" opacity="0.06"/>
+            <rect x="55" y="120" width="12" height="24" rx="2" fill="#0f0e0c" opacity="0.06"/>
+            <rect x="133" y="120" width="12" height="24" rx="2" fill="#0f0e0c" opacity="0.06"/>
+          </svg>
+        </div>
+        <div class="card-label">Standing Desk</div>
+        <div class="card-name">Autonomous SmartDesk Pro</div>
+        <div class="card-price">From <strong>$499</strong> · Free shipping</div>
+        <span class="commission-tag">✓ Up to 10% commission</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>Standing Desks</span><span class="dot">◆</span>
+    <span>Ergonomic Chairs</span><span class="dot">◆</span>
+    <span>Ultrawide Monitors</span><span class="dot">◆</span>
+    <span>Mechanical Keyboards</span><span class="dot">◆</span>
+    <span>Webcams & Lighting</span><span class="dot">◆</span>
+    <span>Desk Accessories</span><span class="dot">◆</span>
+    <span>Noise-Cancelling Headphones</span><span class="dot">◆</span>
+    <span>Standing Desks</span><span class="dot">◆</span>
+    <span>Ergonomic Chairs</span><span class="dot">◆</span>
+    <span>Ultrawide Monitors</span><span class="dot">◆</span>
+    <span>Mechanical Keyboards</span><span class="dot">◆</span>
+    <span>Webcams & Lighting</span><span class="dot">◆</span>
+    <span>Desk Accessories</span><span class="dot">◆</span>
+    <span>Noise-Cancelling Headphones</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<section class="section" id="products">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Top Rated Gear</div>
+      <h2 class="section-title">Best home office picks<br>for serious workers</h2>
+    </div>
+    <a href="#" class="view-all">View all →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img bg1">🖥️</div>
+      <div class="product-info">
+        <div class="product-cat">Monitor</div>
+        <div class="product-name">LG 34" UltraWide Curved</div>
+        <div class="product-bottom">
+          <span class="product-price">$599</span>
+          <a href="#" class="product-btn">Check Price →</a>
+        </div>
+        <span class="commission-tag">Amazon Associates · 4% comm.</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img bg2">🪑</div>
+      <div class="product-info">
+        <div class="product-cat">Ergonomic Chair</div>
+        <div class="product-name">Herman Miller Aeron — Remastered</div>
+        <div class="product-bottom">
+          <span class="product-price">$1,395</span>
+          <a href="#" class="product-btn">Check Price →</a>
+        </div>
+        <span class="commission-tag">Direct Brand · 6% comm.</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img bg3">⌨️</div>
+      <div class="product-info">
+        <div class="product-cat">Keyboard</div>
+        <div class="product-name">Keychron Q1 Pro Wireless</div>
+        <div class="product-bottom">
+          <span class="product-price">$289</span>
+          <a href="#" class="product-btn">Check Price →</a>
+        </div>
+        <span class="commission-tag">Amazon Associates · 5% comm.</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img bg4">📸</div>
+      <div class="product-info">
+        <div class="product-cat">Webcam</div>
+        <div class="product-name">Elgato Facecam Pro 4K</div>
+        <div class="product-bottom">
+          <span class="product-price">$299</span>
+          <a href="#" class="product-btn">Check Price →</a>
+        </div>
+        <span class="commission-tag">Amazon Associates · 4% comm.</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img bg5">🎧</div>
+      <div class="product-info">
+        <div class="product-cat">Headphones</div>
+        <div class="product-name">Sony WH-1000XM6 ANC</div>
+        <div class="product-bottom">
+          <span class="product-price">$399</span>
+          <a href="#" class="product-btn">Check Price →</a>
+        </div>
+        <span class="commission-tag">Amazon Associates · 4% comm.</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img bg6">💡</div>
+      <div class="product-info">
+        <div class="product-cat">Lighting</div>
+        <div class="product-name">Elgato Key Light Air Pro</div>
+        <div class="product-bottom">
+          <span class="product-price">$259</span>
+          <a href="#" class="product-btn">Check Price →</a>
+        </div>
+        <span class="commission-tag">Amazon Associates · 5% comm.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-section" id="why">
+  <div class="why-grid">
+    <div class="why-text">
+      <div class="section-label">Why SetupElite?</div>
+      <h2 class="section-title">We only recommend<br>what we'd buy ourselves.</h2>
+      <p>Every product on this site has been researched, tested, and verified. We dig through thousands of reviews and expert opinions so you don't have to.</p>
+      <div class="features-list">
+        <div class="feature-item">
+          <div class="feature-icon">🔬</div>
+          <div>
+            <h4>Research-backed picks</h4>
+            <p>Every recommendation is backed by data, real user reviews, and hands-on testing where possible.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💰</div>
+          <div>
+            <h4>All budgets covered</h4>
+            <p>From budget builds to premium setups — we find the best value at every price point.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔄</div>
+          <div>
+            <h4>Updated regularly</h4>
+            <p>Our picks are refreshed as new products launch and prices change.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="why-card">
+        <div class="why-card-num">200+</div>
+        <div class="why-card-label">Products reviewed & ranked</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">4.9★</div>
+        <div class="why-card-label">Average reader satisfaction</div>
+      </div>
+      <div class="why-card wide">
+        <div class="why-card-num">$50–$200</div>
+        <div class="why-card-label">Average reader savings vs buying wrong — our guides help you get it right the first time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews-section" id="reviews">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Reader Reviews</div>
+      <h2 class="section-title">Real people, real setups</h2>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Found the perfect standing desk through SetupElite. The comparison guide saved me hours and I got exactly what I needed at the right price."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">JM</div>
+        <div><div class="reviewer-name">James M.</div><div class="reviewer-role">Software Engineer, NYC</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"I upgraded my entire home office based on these recommendations. My back no longer hurts and my focus has improved massively."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">SC</div>
+        <div><div class="reviewer-name">Sarah C.</div><div class="reviewer-role">Marketing Manager, London</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Spent 3 months researching monitors before finding this guide. Should have come here first — it had everything in one place."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">TP</div>
+        <div><div class="reviewer-name">Tyler P.</div><div class="reviewer-role">Freelance Designer, Toronto</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="section-label" style="text-align:center;">Stay in the loop</div>
+    <h2 class="section-title">Get the best deals<br>before everyone else</h2>
+    <p>Join 12,000+ remote workers who get our weekly roundup of the best home office deals, new reviews, and setup inspiration.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="Your email address">
+      <button type="button">Subscribe →</button>
+    </div>
+    <p class="disclaimer">No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<div class="affiliate-notice">
+  <strong>Affiliate Disclosure:</strong> SetupElite participates in affiliate programs. We may earn a commission when you purchase through our links, at no extra cost to you. This helps us keep the site free and independent.
+</div>
+
+<footer>
+  <div class="footer-logo">SetupElite</div>
+  <p>© 2026 SetupElite. All rights reserved.</p>
+  <p>Independent reviews · Affiliate supported</p>
+</footer>
+
+</body>
+</html>
